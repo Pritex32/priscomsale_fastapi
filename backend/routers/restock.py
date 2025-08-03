@@ -10,7 +10,7 @@ router = APIRouter(dependencies=[Depends(verify_api_key)])
 def create_restock(restock: RestockRequest):
     try:
         data = restock.dict()
-        response = supabase_client.table("goods_bought").eq("user_id", user_id).insert(data).execute()
+        response = supabase_client.table("goods_bought").insert(data).execute()
 
         if response.data:
             return {"status": "success", "message": "Restock added", "data": response.data}
