@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from services.supabase_service import supabase_client
+from supabase_service import supabase_client
 from models.sales_model import SaleRequest, FetchSalesRequest
 
 router = APIRouter()
