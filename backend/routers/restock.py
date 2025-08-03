@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from models.restock_model import RestockRequest
-from services.supabase_service import supabase_client
+from supabase_service import supabase_client
+
 from security import verify_api_key
 
 router = APIRouter(dependencies=[Depends(verify_api_key)])
