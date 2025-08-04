@@ -2,9 +2,11 @@ def hash_password(password: str) -> str:
     # Hash the password using SHA-256 (or a stronger hashing function like bcrypt)
     return hashlib.sha256(password.encode()).hexdigest()
   
-  def verify_password(plain_password: str, hashed_password: str) -> bool:
+
+ def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify password"""
     return hash_password(plain_password) == hashed_password
+
 
     
 def mask_email(email):
