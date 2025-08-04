@@ -71,3 +71,16 @@ def delete_employee(employee_id: int):
             raise HTTPException(status_code=404, detail="Employee not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+        
+@router.get("/names/{user_id}")
+def get_employee_names(user_id: int):
+    try:
+        response = supabase_client.table(TABLE_NAME).select("employee_id, name").eq("user_id", user_id).execute()
+        if response.data:
+            # Return as dictionary: {name: employee_id}
+            emp_dict = {emp["name"]: emp["employee_id"] for emp in response.data}
+            return {"status": "success", "data": emp_dict}
+        else:
+            return {"status": "success", "data": {}}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
