@@ -60,7 +60,7 @@ def create_sale(sale: SaleRequest):
 
 
 # ✅ Get all sales for a user
-@router.get("/sales/history/{user_id}")
+@router.get("/history/{user_id}")
 def get_sales_history(user_id: int):
     try:
         response = supabase_client.table("sales_master_history").select("*").eq("user_id", user_id).execute()
@@ -69,7 +69,7 @@ def get_sales_history(user_id: int):
         raise HTTPException(status_code=500, detail=str(e))
 
 # ✅ Get all sales for a user
-@router.get("/sales/log/{user_id}")
+@router.get("/log/{user_id}")
 def get_sales_log(user_id: int):
     try:
         response = supabase_client.table("sales_master_log").select("*").eq("user_id", user_id).execute()
