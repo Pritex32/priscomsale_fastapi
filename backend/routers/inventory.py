@@ -53,7 +53,7 @@ def update_inventory(user_id: int, inventory: InventoryRequest):
         data = inventory.dict()
         data["last_updated"] = datetime.utcnow().isoformat()
 
-        response = supabase_client.table(TABLE_NAME).update(data).eq("user_id", user_id).execute()
+        response = supabase_client.table(TABLE_NAME).update(data).eq("item_id", item_id).execute()
 
         if response.data:
             return {"status": "success", "message": "Inventory record updated", "data": response.data}
@@ -66,7 +66,7 @@ def update_inventory(user_id: int, inventory: InventoryRequest):
 @router.delete("/delete/{id}")
 def delete_inventory(id: int):
     try:
-        response = supabase_client.table(TABLE_NAME).delete().eq("user_id", user_id).execute()
+        response = supabase_client.table(TABLE_NAME).delete().eq("item_id",item_id).execute()
         if response.data:
             return {"status": "success", "message": "Inventory record deleted"}
         else:
