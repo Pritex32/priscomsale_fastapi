@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import sales, restock,expenses, payments,inventory,employees
+from routers import sales, restock,expenses, payments,inventory,employees,users
 
 
 app = FastAPI(title="PriscomSales API")
@@ -11,6 +11,8 @@ app.include_router(expenses.router, prefix="/api/expenses", tags=["Expenses"])
 app.include_router(payments.router, prefix="/api/payments", tags=["Payments"])
 app.include_router(inventory.router, prefix="/api/inventory", tags=["inventory"])
 app.include_router(employees.router, prefix="/api/employees", tags=["employees"])
+app.include_router(users.router, prefix="/api/users", tags=["users"])
+
 
 
 from fastapi.responses import JSONResponse
