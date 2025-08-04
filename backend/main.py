@@ -14,6 +14,9 @@ app.include_router(employees.router, prefix="/api/employees", tags=["employees"]
 app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(subscription.router, prefix="/api/subscription", tags=["subscription"])
 app.include_router(customers.router, prefix="/api/customers", tags=["customers"])
+from routers import storage
+app.include_router(storage.router)
+
 
 
 
