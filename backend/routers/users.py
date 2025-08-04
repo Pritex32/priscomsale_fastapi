@@ -4,6 +4,33 @@ from supabase_service import supabase_client
 from security import verify_api_key
 from datetime import datetime
 from utils.hashing import hash_password  # Custom utility for hashing
+import bcrypt
+import pandas as pd
+from streamlit_option_menu import option_menu
+from datetime import datetime,date
+import json
+import time
+from streamlit_extras.switch_page_button import switch_page 
+from PIL import Image
+import io
+import os
+import requests
+import numpy as np
+from storage3.exceptions import StorageApiError
+import uuid
+
+from fpdf import FPDF
+import base64
+import jwt
+import streamlit.components.v1 as components
+from streamlit_javascript import st_javascript
+# 🔐 Same secret key must be used across all pages
+
+
+import logging
+
+from datetime import datetime, timedelta, timezone
+import streamlit as st
 
 router = APIRouter(dependencies=[Depends(verify_api_key)])
 
