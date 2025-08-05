@@ -12,7 +12,8 @@ TABLE_NAME = "customers"
 @router.post("/create")
 def create_customer(customer: CustomerRequest):
     try:
-        data = customer.dict()
+        data = customer.dict(exclude={"customer_id"})
+
         data["created_at"] = datetime.utcnow().isoformat()
 
         response = supabase_client.table(TABLE_NAME).insert(data).execute()
