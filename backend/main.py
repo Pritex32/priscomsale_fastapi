@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import sales, restock,expenses, payments,inventory,employees,users,subscription,customers,user_sheets
+from routers import sales, restock,expenses, payments,inventory,employees,users,subscription,customers,user_sheets,sheet_data,admin_logs
 
 
 app = FastAPI(title="PriscomSales API")
@@ -15,6 +15,8 @@ app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(subscription.router, prefix="/api/subscription", tags=["subscription"])
 app.include_router(customers.router, prefix="/api/customers", tags=["customers"])
 app.include_router(user_sheets.router, prefix="/api/user_sheets", tags=["User Sheets"])
+app.include_router(sheet_data.router, prefix="/api/sheet_data", tags=["Sheet Data"])
+app.include_router(admin_logs.router, prefix="/api/admin_logs", tags=["Admin Logs"])
 from routers import storage
 app.include_router(storage.router)
 
