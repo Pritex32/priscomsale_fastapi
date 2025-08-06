@@ -19,7 +19,13 @@ app.include_router(storage.router)
 
 
 
+@app.get("/")
+def read_root():
+    return {"message": "API is running"}
 
+@app.get("/health")
+def health_check():
+    return {"status": "healthy"}
 
 from fastapi.responses import JSONResponse
 from fastapi.requests import Request
