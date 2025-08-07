@@ -50,3 +50,19 @@ def get_recent_global_logins():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.get("/total_logins/{user_id}")
+def get_total_logins(user_id: int):
+    try:
+        response = supabase_client.table("login_logs") \
+            .select("count", count="exact") \
+            .eq("user_id", user_id) \
+            .execute()
+        
+        if response.status_code != 200:
+            raise HTTPException(status_code=500, detail="Failed to fetch login count")
+        
+        return {"total_logins": response.count or 0}
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
