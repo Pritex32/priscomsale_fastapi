@@ -111,3 +111,18 @@ def delete_user(user_id: int):
             raise HTTPException(status_code=404, detail="User not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/user/md-name")
+def get_md_name(user_id: int):
+    try:
+        user_info = supabase_client.table("users") \
+            .select("username") \
+            .eq("user_id", user_id) \
+            .single() \
+            .execute()
+
+        name = user_info.data.get("username", "Unknown MD") if user_info.data else "Unknown MD"
+        return {"name": name}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
