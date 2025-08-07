@@ -18,7 +18,7 @@ app.include_router(user_sheets.router, prefix="/api/user_sheets", tags=["User Sh
 app.include_router(sheet_data.router, prefix="/api/sheet_data", tags=["Sheet Data"])
 app.include_router(admin_logs.router, prefix="/api/admin_logs", tags=["Admin Logs"])
 app.include_router(proforma_invoices.router, prefix="/api/proforma_invoices", tags=["Proforma Invoices"])
-app.include_router(login_log.router, prefix="/api/login_logs")
+app.include_router(login_log.router, prefix="/api/login_logs",tags=['login_logs'])
 
 
 app.include_router(feedback.router, prefix="/api/feedback", tags=["Feedback"])
