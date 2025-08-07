@@ -77,3 +77,33 @@ def get_sales_log(user_id: int):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+from fastapi import Body
+
+@router.post("/verify_sale/{sale_id}")
+def verify_sale(sale_id: int, user_id: int = Body(...), notes: str = Body(...), verified_by: str = Body(...)):
+    try:
+        update_data = {
+            "is_verified": True,
+            "verified_by": verified_by,
+            "verified_at": str(datetime.now()),
+            "verification_notes": notes
+        }
+        supabase_client.table("sales_master_history").update(update_data).eq("sale_id", sale_id).eq("user_id", user_id).execute()
+        return {"status": "success", "message": "Sale marked as verified"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/flag_sale/{sale_id}")
+def flag_sale(sale_id: int, user_id: int = Body(...), notes: str = Body(...), verified_by: str = Body(...)):
+    try:
+        update_data = {
+            "is_verified": False,
+            "verified_by": verified_by,
+            "verified_at": str(datetime.now()),
+            "verification_notes": f"[FLAGGED] {notes or 'Flagged for follow-up'}"
+        }
+        supabase_client.table("sales_master_history").update(update_data).eq("sale_id", sale_id).eq("user_id", user_id).execute()
+        return {"status": "success", "message": "Sale flagged"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
