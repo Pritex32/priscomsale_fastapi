@@ -107,3 +107,23 @@ def flag_sale(sale_id: int, user_id: int = Body(...), notes: str = Body(...), ve
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.get("/unverified_sales/{user_id}")
+def get_unverified_sales(user_id: int):
+    try:
+        response = supabase_client.table("sales_master_history") \
+            .select("*") \
+            .eq("user_id", user_id) \
+            .eq("is_verified", False) \
+            .order("sale_date", desc=True) \
+            .execute()
+
+        # Remove flagged ones
+        filtered = [
+            sale for sale in (response.data or [])
+            if not str(sale.get("verification_notes", "")).startswith("[FLAGGED]")
+        ]
+        return {"status": "success", "data": filtered}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
