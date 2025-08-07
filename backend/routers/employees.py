@@ -84,3 +84,19 @@ def get_employee_names(user_id: int):
             return {"status": "success", "data": {}}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/user/employee-name")
+def get_employee_name(user_id: int):
+    try:
+        emp_info = supabase_client.table("employees") \
+            .select("name") \
+            .eq("employee_id", user_id) \
+            .single() \
+            .execute()
+
+        name = emp_info.data.get("name", "Unknown Employee") if emp_info.data else "Unknown Employee"
+        return {"name": name}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
