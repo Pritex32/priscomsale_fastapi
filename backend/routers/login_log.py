@@ -66,3 +66,30 @@ def get_total_logins(user_id: int):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.get("/user/name")
+def get_user_name(role: str, user_id: int):
+    try:
+        if role == "md":
+            user_info = supabase_client.table("users") \
+                .select("username") \
+                .eq("user_id", user_id) \
+                .single() \
+                .execute()
+
+            name = user_info.data.get("username", "Unknown MD") if user_info.data else "Unknown MD"
+
+        else:
+            emp_info = supabase_client.table("employees") \
+                .select("name") \
+                .eq("employee_id", user_id) \
+                .single() \
+                .execute()
+
+            name = emp_info.data.get("name", "Unknown Employee") if emp_info.data else "Unknown Employee"
+
+        return {"name": name}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
